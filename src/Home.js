@@ -3,14 +3,19 @@ import React from 'react';
 import Header from './header';
 import Card from './Card';
 import Baixo from './Baixo';
+import Sidebar from './sidebar';
 
 function Home() {
   return (
-    <div>
-      <Header />
-      <Card />
-      <Baixo />
+   <div  className='appContainer'>
+      <Sidebar></Sidebar>
+      <div className='.mainContent'> 
+        <Header />
+        <Card />
+        <Baixo />
+      </div>
     </div>
+    
   );
 }
 

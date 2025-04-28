@@ -174,4 +174,54 @@
 }
 
 
+.appContainer {
+  display: flex;
+  height: 100vh;
+  background: #f0f2f5;
+}
+
+.sidebar {
+  width: 220px;
+  background: linear-gradient(180deg, #011d99, #00c6ff);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sidebarButton {
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px 0;
+  width: 80%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.sidebarButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.mainContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+
+
+
 
