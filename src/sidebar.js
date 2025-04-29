@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
-
-import { useNavigate } from 'react-router-dom'; 
-
+import { Button, Snackbar, Alert } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
   const [executing, setExecuting] = useState(false);
-  const navigate = useNavigate(); 
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const navigate = useNavigate();
 
   function Executando() {
     setExecuting(true);
     setTimeout(() => {
       setExecuting(false);
-      alert("Todos os testes foram executados!");
+      setShowSnackbar(true); 
     }, 5000);
   }
 
   function handleAnalise() {
-    navigate("/grafico"); 
+    navigate("/grafico");
   }
+
+  const handleCloseSnackbar = (_, reason) => {
+    if (reason === 'clickaway') return;
+    setShowSnackbar(false);
+  };
 
   return (
     <div className="sidebar">
@@ -35,12 +39,23 @@ function Sidebar() {
       <Button 
         variant="contained" 
         className="sidebarButton" 
-        
         onClick={Executando}
         disabled={executing}
       >
         {executing ? "Executando..." : "Executar Todos"}
       </Button>
+
+    
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity="success" onClose={handleCloseSnackbar} sx={{ width: '100%' }}>
+          Todos os testes foram executados!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-// Home.js
 import React from 'react';
 import Header from './header';
 import Card from './Card';
@@ -7,16 +6,23 @@ import Sidebar from './sidebar';
 
 function Home() {
   return (
-   <div  className='appContainer'>
-      <Sidebar></Sidebar>
-      <div className='.mainContent'> 
+    <div className="appContainer">
+      <div className="headerWrapper">
         <Header />
-        <Card />
+      </div>
+      <div className="contentWrapper">
+        <Sidebar />
+        <div className="mainContent">
+          <Card />
+        </div>
+      </div>
+      <div className="footerWrapper">
         <Baixo />
       </div>
     </div>
-    
   );
 }
 
 export default Home;
+
+

@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import {
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Stack
+} from '@mui/material';
 import AlarmIcon from '@mui/icons-material/Alarm';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import { Stack } from '@mui/material';
-
+import CloseIcon from '@mui/icons-material/Close';
 
 function getChinaTime() {
   return new Date().toLocaleString("pt-BR", {
@@ -20,74 +24,109 @@ function getChinaTime() {
 }
 
 function Header() {
-  const linklenovo="https://www.lenovo.com/br/pt/d/promocoes/?cid=br%3Asem%7Cse%7Cgoogle%7Cj-b2c-brand_trafego-awrs-google-search-net%7C%7Clenovo%7C%7C18076414538%7C145816546288%7Ckwd-845751236%7C%7C%7C&gbraid=0AAAAADtpWiCLXla5pRFK-63SBfyQCaTMQ&gclid=Cj0KCQjwzrzABhD8ARIsANlSWNPem-Jo-n3OjmpetKAGl1WIZ-BCkegwvUsfUzkwRSCwD5jqigcqmRkaAskqEALw_wcB&gad_source=1" 
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const linklenovo = "https://www.lenovo.com/br/pt/d/promocoes/?cid=br%3Asem%7Cse%7Cgoogle%7Cj-b2c-brand_trafego-awrs-google-search-net%7C%7Clenovo%7C%7C18076414538%7C145816546288%7Ckwd-845751236%7C%7C%7C";
+
+  const [anchorEl, setAnchorEl] = useState(null);
   const [alarmDialogOpen, setAlarmDialogOpen] = useState(false);
+  const [configDialogOpen, setConfigDialogOpen] = useState(false);
   const [chinaTime, setChinaTime] = useState(getChinaTime());
-    function PopUp(){
-        alert("AÇÃO")
-    }
-  function handleOpenDialog() {
-    setDialogOpen(true);
-  }
 
-  function handleCloseDialog() {
-    setDialogOpen(false);
-  }
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  function handleOpenAlarmDialog() {
-    setChinaTime(getChinaTime()); 
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleOpenAlarmDialog = () => {
+    setChinaTime(getChinaTime());
     setAlarmDialogOpen(true);
-  }
+  };
 
-  function handleCloseAlarmDialog() {
-    setAlarmDialogOpen(false);
-  }
+  const handleCloseAlarmDialog = () => setAlarmDialogOpen(false);
+  const handleOpenConfigDialog = () => {
+    setConfigDialogOpen(true);
+    handleMenuClose();
+  };
+
+  const handleCloseConfigDialog = () => setConfigDialogOpen(false);
 
   return (
     <div className="topnav">
       <h1 className="title">LENOVO DIAGNOSTICS</h1>
-      
-      <IconButton color="secondary" aria-label="add an alarm" onClick={handleOpenAlarmDialog}>
+
+      <IconButton color="secondary" onClick={handleOpenAlarmDialog}>
         <AlarmIcon />
       </IconButton>
+
       
-      <Button className="buttonHeader1" variant="contained" onClick={handleOpenDialog}>
+      <Button className="buttonHeader1" variant="contained" onClick={handleMenuClick}>
         Dialog
-      </Button>
-      
-      <Button href={linklenovo}className="buttonHeader2" variant="contained">
-        Lenovo
       </Button>
 
    
-      <Dialog className="dialog" open={dialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle className='dialogText'>Dialog</DialogTitle>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        PaperProps={{
+          sx: { borderRadius: 2, mt: 1, minWidth: 160 }
+        }}
+      >
+        <MenuItem onClick={handleOpenConfigDialog}>Configurações</MenuItem>
+        <MenuItem onClick={() => { alert("INFO"); handleMenuClose(); }}>Info</MenuItem>
+        <MenuItem onClick={() => { alert("Ajuda"); handleMenuClose(); }}>Ajuda</MenuItem>
+      </Menu>
+
+      <Button href={linklenovo} className="buttonHeader2" variant="contained">
+        Lenovo
+      </Button>
+
+     
+      <Dialog open={alarmDialogOpen} onClose={handleCloseAlarmDialog}>
+        <DialogTitle>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <span>Horário da China</span>
+            <IconButton onClick={handleCloseAlarmDialog}>
+              <CloseIcon />
+            </IconButton>
+          </Stack>
+        </DialogTitle>
         <DialogContent>
-            <Stack spacing={1}>
-            <Button className="configButton" variant="text"onClick={PopUp}>Configs</Button>
-            <Button className="configButton" variant="text"onClick={PopUp}>Info</Button>
-            <Button className="configButton" variant="text"onClick={PopUp}>Ajuda</Button>
-            </Stack>
-            
- 
+          <p>Agora são <strong>{chinaTime}</strong> na China </p>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Fechar
+          <Button onClick={handleCloseAlarmDialog} color="primary">
+            Ok
           </Button>
         </DialogActions>
       </Dialog>
 
-      
-      <Dialog open={alarmDialogOpen} onClose={handleCloseAlarmDialog}>
-        <DialogTitle>Horário na China</DialogTitle>
+   
+      <Dialog open={configDialogOpen} onClose={handleCloseConfigDialog}>
+        <DialogTitle>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <span>Configurações</span>
+            <IconButton onClick={handleCloseConfigDialog}>
+              <CloseIcon />
+            </IconButton>
+          </Stack>
+        </DialogTitle>
         <DialogContent>
-          <p>Agora são <strong>{chinaTime}</strong> na China 🇨🇳</p>
+          <p>Aqui você pode ajustar as configurações do sistema 🛠️</p>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseAlarmDialog} color="primary">
-            Fechar
+          <Button onClick={handleCloseConfigDialog} color="primary">
+            Ok
           </Button>
         </DialogActions>
       </Dialog>
@@ -98,4 +137,6 @@ function Header() {
 }
 
 export default Header;
+
+
 
