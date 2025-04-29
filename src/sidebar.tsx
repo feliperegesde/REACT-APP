@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Snackbar, Alert } from '@mui/material';
+import { Button, Snackbar, Alert, AlertColor } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-function Sidebar() {
-  const [executing, setExecuting] = useState(false);
-  const [showSnackbar, setShowSnackbar] = useState(false);
+import { JSX } from 'react';
+function Sidebar(): JSX.Element {
+  const [executing, setExecuting] = useState<boolean>(false);
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  function Executando() {
+  function Executando(): void {
     setExecuting(true);
     setTimeout(() => {
       setExecuting(false);
@@ -15,20 +15,27 @@ function Sidebar() {
     }, 5000);
   }
 
-  function handleAnalise() {
+  function handleAnalise(): void {
     navigate("/grafico");
   }
 
-  const handleCloseSnackbar = (_, reason) => {
+  function handleCloseSnackbar(
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ): void {
     if (reason === 'clickaway') return;
     setShowSnackbar(false);
-  };
+  }
 
   return (
     <div className="sidebar">
       <h2>Menu</h2>
-      <Button variant="contained" href="https://pt.symbolab.com/solver/limit-calculator" className="sidebarButton">Limites</Button>
-      <Button variant="contained" className="sidebarButton">Testes</Button>
+      <Button variant="contained" href="https://pt.symbolab.com/solver/limit-calculator" className="sidebarButton">
+        Limites
+      </Button>
+      <Button variant="contained" className="sidebarButton">
+        Testes
+      </Button>
       <Button 
         variant="contained" 
         className="sidebarButton" 
@@ -45,7 +52,6 @@ function Sidebar() {
         {executing ? "Executando..." : "Executar Todos"}
       </Button>
 
-    
       <Snackbar
         open={showSnackbar}
         autoHideDuration={4000}
@@ -61,5 +67,6 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
 
 

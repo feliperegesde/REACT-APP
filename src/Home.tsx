@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from './Header';
+import Header from './header';
 import Card from './Card';
 import Baixo from './Baixo';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar';
 
 const Home: React.FC = () => {
   return (

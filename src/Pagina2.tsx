@@ -1,24 +1,23 @@
-
-import Header from './header.js';
-import Baixo from './Baixo.js';
+import React, { FC } from 'react';
+import Header from './header';
+import Baixo from './Baixo';
 import Button from '@mui/material/Button';
 
-
-function Pagina2() {
-
+const Pagina2: FC = () => {
   return (
     <>
       <Header />
-      <div className='pagina2' >
-        <h1 className='textoPagina2' >AÇÃO</h1>
+      <div className="pagina2">
+        <h1 className="textoPagina2">AÇÃO</h1>
         <Button variant="contained" color="success" href="/">
-        Voltar para a Página Inicial
-      </Button>
-
+          Voltar para a Página Inicial
+        </Button>
       </div>
       <Baixo />
     </>
   );
-}
+};
 
 export default Pagina2;
+
+
