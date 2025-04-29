@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from './header';
+import Header from './Header';
 import Card from './Card';
 import Baixo from './Baixo';
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
 
-function Home() {
+const Home: React.FC = () => {
   return (
     <div className="appContainer">
       <div className="headerWrapper">
@@ -21,8 +21,9 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;
+
 
 

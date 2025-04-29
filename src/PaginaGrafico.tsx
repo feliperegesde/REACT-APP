@@ -1,10 +1,23 @@
-// PaginaGrafico.js
+import React, { FC } from 'react';
 import { Button } from '@mui/material';
-import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
-function PaginaGrafico() {
-  const data = [
+interface DeviceData {
+  name: string;
+  preco: number;
+}
+
+const PaginaGrafico: FC = () => {
+  const data: DeviceData[] = [
     { name: 'Video Card', preco: Math.floor(Math.random() * 1000 + 500) },
     { name: 'Camera', preco: Math.floor(Math.random() * 400 + 200) },
     { name: 'Audio Device', preco: Math.floor(Math.random() * 300 + 100) },
@@ -29,9 +42,12 @@ function PaginaGrafico() {
           </LineChart>
         </ResponsiveContainer>
       </div>
-      <Button  href="/" variant='cotained' color="inherit">VOLTAR PAGINA INICIAL</Button>
+      <Button href="/" variant="contained" color="inherit">
+        VOLTAR PAGINA INICIAL
+      </Button>
     </div>
   );
-}
+};
 
 export default PaginaGrafico;
+

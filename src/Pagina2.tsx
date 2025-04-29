@@ -1,8 +1,8 @@
-import React from 'react';
+
 import Header from './header.js';
 import Baixo from './Baixo.js';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+
 
 function Pagina2() {
 

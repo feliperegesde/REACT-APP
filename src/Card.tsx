@@ -7,14 +7,15 @@ import wifiImage from './assets/image4.png';
 import touchImage from './assets/image5.png';
 import mouseImage from './assets/image6.png';
 import memoriaImage from './assets/image7.png';
+import React, { FC } from 'react';
 
+const Card: FC = () => {
+  const navigate = useNavigate();
 
-
-function Card() {
-  const navigate= useNavigate();
-  function secondPage() {
+  const secondPage = () => {
     navigate('/pagina2');
-  }
+  };
+
   return (
     <div className="content">
       <div className="card">
@@ -31,6 +32,7 @@ function Card() {
         <img className="card-image" src={bateryImage} alt="profile_picture" />
         <button className="button_card1" onClick={secondPage}></button>
       </div>
+
       <div className="card">
         <img className="card-image" src={sensorImage} alt="profile_picture" />
         <button className="button_card1" onClick={secondPage}></button>
@@ -45,10 +47,12 @@ function Card() {
         <img className="card-image" src={touchImage} alt="profile_picture" />
         <button className="button_card1" onClick={secondPage}></button>
       </div>
+
       <div className="card">
         <img className="card-image" src={mouseImage} alt="profile_picture" />
         <button className="button_card1" onClick={secondPage}></button>
       </div>
+
       <div className="card">
         <img className="card-image" src={memoriaImage} alt="profile_picture" />
         <button className="button_card1" onClick={secondPage}></button>
@@ -57,6 +61,7 @@ function Card() {
       <hr />
     </div>
   );
-}
+};
 
 export default Card;
+
