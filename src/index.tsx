@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import React, { FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -6,7 +6,6 @@ import {
   MenuItem,
 } from '@mui/material';
 import AlarmIcon from '@mui/icons-material/Alarm';
-
 import ChinaTimeDialog from './ChinaTimeDialog';
 import ConfigDialog from './ConfigDialog';
 
@@ -85,7 +84,6 @@ const Header: React.FC = () => {
         onClose={handleCloseAlarmDialog}
         chinaTime={chinaTime}
       />
-
       <ConfigDialog
         open={configDialogOpen}
         onClose={handleCloseConfigDialog}
