@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './header';
 import Card from './Card';
 import Baixo from './Baixo';
-import Sidebar from './sidebar';
+import Sidebar from '../sidebar';
 
 const Home: React.FC = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import Header from './header';
-import Baixo from './Baixo';
+import Header from './body/header';
+import Baixo from './body/Baixo';
 import Button from '@mui/material/Button';
 
 const Pagina1: FC = () => {
