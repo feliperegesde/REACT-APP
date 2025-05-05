@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -15,24 +15,42 @@ interface ConfigDialogProps {
   onClose: () => void;
 }
 
-const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => (
-  <Dialog open={open} onClose={onClose}>
-    <DialogTitle>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <span>Configurações</span>
-        <IconButton onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      </Stack>
-    </DialogTitle>
-    <DialogContent>
-      <p>Aqui você pode ajustar as configurações do sistema 🛠️</p>
-    </DialogContent>
-    <DialogActions>
-      <Button onClick={onClose} color="primary">Ok</Button>
-    </DialogActions>
-  </Dialog>
-);
+const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => {
+  const okButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (open && okButtonRef.current) {
+      okButtonRef.current.focus();
+    }
+  }, [open]);
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <span>Configurações</span>
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </Stack>
+      </DialogTitle>
+      <DialogContent>
+        <p>Aqui você pode ajustar as configurações do sistema 🛠️</p>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          ref={okButtonRef}
+          onClick={onClose}
+          color="primary"
+          autoFocus 
+        >
+          Ok
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 export default ConfigDialog;
+
 

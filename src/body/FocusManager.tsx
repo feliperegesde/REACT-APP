@@ -37,7 +37,7 @@ export const FocusProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const registerArea = (
     name: AreaName,
     elements: HTMLElement[],
-    orientation: Orientation = 'vertical',
+    orientation: Orientation = 'horizontal',
     columns?: number
   ) => {
     areas.current[name] = { name, elements, orientation, columns };
@@ -99,12 +99,20 @@ export const FocusProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'F6') {
         e.preventDefault();
-        const currentIndex = areaList.findIndex(area =>
-          areas.current[area]?.elements.some(el => el === document.activeElement)
+        const availableAreas = areaList.filter(area => areas.current[area]?.elements.length > 0);
+        if (availableAreas.length === 0) return;
+        
+        const currentArea = availableAreas.find(area =>
+          areas.current[area].elements.includes(document.activeElement as HTMLElement)
         );
-        const nextIndex = (currentIndex + 1) % areaList.length;
-        focusArea(areaList[nextIndex]);
-      } else if (e.key === 'Escape') {
+        
+        const currentIndex = currentArea ? availableAreas.indexOf(currentArea) : -1;
+        const nextIndex = (currentIndex + 1) % availableAreas.length;
+        
+        focusArea(availableAreas[nextIndex]);
+        
+      }
+       else if (e.key === 'Escape') {
         focusArea('header');
       } else if (
         e.key === 'ArrowUp' || e.key === 'ArrowDown' ||
