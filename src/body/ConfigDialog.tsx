@@ -37,8 +37,8 @@ const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => {
       <DialogContent>
         <p>Aqui você pode ajustar as configurações do sistema 🛠️</p>
       </DialogContent>
-      <DialogActions>
-        <Button
+      <DialogActions>  
+        <Button tabIndex={-1}
           ref={okButtonRef}
           onClick={onClose}
           color="primary"

@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useRef, useEffect, ReactNode } from 'react';
 
-export type AreaName = 'header' | 'sidebar' | 'main' | 'footer';
+export type AreaName = 'header' | 'sidebar' | 'main' | 'footer' | 'main2' | 'footer2';
 export type Orientation = 'horizontal' | 'vertical' | 'grid';
 
 interface FocusArea {
@@ -19,7 +19,9 @@ interface FocusContextType {
     columns?: number
   ) => void;
   focusArea: (name: AreaName) => void;
+  clearAreas: () => void; 
 }
+
 
 const FocusContext = createContext<FocusContextType | null>(null);
 
@@ -32,7 +34,7 @@ export const useFocusManager = () => {
 export const FocusProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   
   const areas = useRef<Record<AreaName, FocusArea>>({} as Record<AreaName, FocusArea>);
-  const areaList: AreaName[] = ['header', 'sidebar', 'main', 'footer'];
+  const areaList: AreaName[] = ['header', 'sidebar', 'main', 'footer','main2'];
 
   const registerArea = (
     name: AreaName,
@@ -49,7 +51,9 @@ export const FocusProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       area.elements[0].focus();
     }
   };
-
+  const clearAreas = () => {
+    areas.current = {} as Record<AreaName, FocusArea>;
+  };
   const handleArrowNavigation = (e: KeyboardEvent) => {
     const active = document.activeElement as HTMLElement;
     const currentArea = Object.values(areas.current).find(area =>
@@ -93,7 +97,10 @@ export const FocusProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (nextIndex >= 0 && nextIndex < currentArea.elements.length) {
       currentArea.elements[nextIndex].focus();
     }
+
+    
   };
+  
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -128,9 +135,9 @@ export const FocusProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   }, []);
 
   return (
-    <FocusContext.Provider value={{ registerArea, focusArea }}>
-      {children}
-    </FocusContext.Provider>
+<FocusContext.Provider value={{ registerArea, focusArea,clearAreas,} }>
+  {children}
+</FocusContext.Provider>
   );
 };
 
