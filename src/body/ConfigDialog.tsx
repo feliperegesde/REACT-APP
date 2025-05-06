@@ -17,7 +17,6 @@ interface ConfigDialogProps {
 
 const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => {
   const okButtonRef = useRef<HTMLButtonElement>(null);
-
   useEffect(() => {
     if (open && okButtonRef.current) {
       okButtonRef.current.focus();

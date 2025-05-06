@@ -3,7 +3,7 @@ import Header from './header';
 import Card from './Card';
 import Baixo from './Baixo';
 import Sidebar from '../sidebar';
-import { useFocusManager } from './FocusManager';
+import useFocusManager from './FocusManager';
 
 const Home: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -11,38 +11,65 @@ const Home: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
 
-  const { registerArea } = useFocusManager();
+  const { registerArea } = useFocusManager;
 
   useEffect(() => {
-
     if (headerRef.current) {
-      registerArea('header', Array.from(headerRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')));
+      registerArea(
+        'header',
+        Array.from(
+          headerRef.current.querySelectorAll(
+            'button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          )
+        )
+      );
     }
     if (sidebarRef.current) {
-      registerArea('sidebar', Array.from(sidebarRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')));
+      registerArea(
+        'sidebar',
+        Array.from(
+          sidebarRef.current.querySelectorAll(
+            'button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          )
+        )
+      );
     }
     if (mainRef.current) {
-      registerArea('main', Array.from(mainRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')));
+      registerArea(
+        'main',
+        Array.from(
+          mainRef.current.querySelectorAll(
+            'button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          )
+        )
+      );
     }
     if (footerRef.current) {
-      registerArea('footer', Array.from(footerRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')));
+      registerArea(
+        'footer',
+        Array.from(
+          footerRef.current.querySelectorAll(
+            'button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          )
+        )
+      );
     }
   }, [registerArea]);
 
   return (
     <div className="appContainer">
-      <div ref={headerRef} className="headerWrapper" tabIndex={-1}>
+      <div ref={headerRef} className="headerWrapper">
         <Header />
       </div>
       <div className="contentWrapper">
-        <div ref={sidebarRef} tabIndex={-1}>
+        <div ref={sidebarRef}>
           <Sidebar />
         </div>
-        <div ref={mainRef} className="mainContent" tabIndex={-1}>
+        <div ref={mainRef} className="mainContent">
           <Card />
         </div>
       </div>
-      <div ref={footerRef} className="footerWrapper" tabIndex={-1}>
+      <div ref={footerRef} className="footerWrapper">
         <Baixo />
       </div>
     </div>

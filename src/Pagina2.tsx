@@ -26,14 +26,14 @@ const Pagina2: FC = () => {
         mainRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')
       ) as HTMLElement[];
       console.log('Main area focáveis (Página 2):', elements);
-      registerArea('main', elements, 'vertical'); // <-- corrigido de main2 para main
+      registerArea('main', elements, 'vertical'); 
     }
 
     if (footerRef.current) {
       registerArea(
         'footer',
         Array.from(footerRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')),
-        'horizontal' // <-- corrigido de footer2 para footer
+        'horizontal' 
       );
     }
   }, [registerArea]);
