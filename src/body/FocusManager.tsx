@@ -11,7 +11,7 @@ class FocusManager {
   private dialogList: HTMLElement[] = [];
   public dialogIndex: number = -1;
 
-  private focusableElements: HTMLElement[] = [];
+  public focusableElements: HTMLElement[] = [];
   private isDialogList: boolean = false;
 
   private arrowNavigableList: HTMLElement[] = [];

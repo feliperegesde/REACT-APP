@@ -2,47 +2,24 @@ import React, { useRef, useEffect } from 'react';
 import Header from './body/header';
 import Baixo from './body/Baixo';
 import Button from '@mui/material/Button';
-import { useFocusManager } from './body/FocusManager';
+import focusManager from "./body/FocusManager";
 
 const Pagina1: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
-
-  const { registerArea } = useFocusManager();
-
   useEffect(() => {
-    if (headerRef.current) {
-      registerArea(
-        'header',
-        Array.from(headerRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')),
-        'horizontal'
-      );
+    const getFocusable = (container: HTMLElement | null): HTMLElement[] =>
+      container ? Array.from(container.querySelectorAll<HTMLElement>("button, [tabindex]:not([tabindex='-1'])")) : [];
 
-
-    }
-    if (mainRef.current) {
-      const elements = Array.from(
-        mainRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')
-      ) as HTMLElement[];
-
-      console.log('Main area focáveis:', elements);
-      registerArea('main', elements, 'vertical');
-  
-
-    }
-    if (footerRef.current) {
-      registerArea(
-        'footer',
-        Array.from(footerRef.current.querySelectorAll('[tabindex], button, a, input, select, textarea')),
-        'horizontal'
-      );
-    }
-  }, [registerArea]);
+    focusManager.setHeaderElements(getFocusable(headerRef.current));
+    focusManager.setMainContentElements(getFocusable(mainRef.current));
+    focusManager.setFooterElements(getFocusable(footerRef.current));
+  }, []);
 
   return (
     <>
-      <div ref={headerRef}>
+      <div ref={headerRef} className="headerWrapper">
         <Header />
       </div>
       <div ref={mainRef} className="page1" tabIndex={-1}>
@@ -51,7 +28,7 @@ const Pagina1: React.FC = () => {
           Voltar para a Página Inicial
         </Button>
       </div>
-      <div ref={footerRef}>
+      <div ref={footerRef} className="footerWrapper">
         <Baixo />
       </div>
     </>
