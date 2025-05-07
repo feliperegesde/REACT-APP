@@ -9,6 +9,7 @@ import {
   Stack,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import focusManager from './FocusManager';
 
 interface ConfigDialogProps {
   open: boolean;
@@ -16,10 +17,29 @@ interface ConfigDialogProps {
 }
 
 const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => {
+  const dialogElementsRef = useRef<HTMLElement[]>([]);
   const okButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
-    if (open && okButtonRef.current) {
-      okButtonRef.current.focus();
+    if (open) {
+      dialogElementsRef.current = [];
+
+      if (closeButtonRef.current) {
+        dialogElementsRef.current.push(closeButtonRef.current);
+      }
+      if (okButtonRef.current) {
+        dialogElementsRef.current.push(okButtonRef.current);
+      }
+
+      focusManager.setDialogList(dialogElementsRef.current, 1); // 1 = índice do "Ok"
+
+      // Garante que o foco vá para o botão Ok após renderização
+      setTimeout(() => {
+        okButtonRef.current?.focus();
+      }, 0);
+    } else {
+      focusManager.resetDialogList();
     }
   }, [open]);
 
@@ -28,7 +48,7 @@ const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => {
       <DialogTitle>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <span>Configurações</span>
-          <IconButton onClick={onClose}>
+          <IconButton onClick={onClose} ref={closeButtonRef}>
             <CloseIcon />
           </IconButton>
         </Stack>
@@ -36,12 +56,11 @@ const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => {
       <DialogContent>
         <p>Aqui você pode ajustar as configurações do sistema 🛠️</p>
       </DialogContent>
-      <DialogActions>  
-        <Button tabIndex={-1}
+      <DialogActions>
+        <Button
           ref={okButtonRef}
           onClick={onClose}
           color="primary"
-          autoFocus 
         >
           Ok
         </Button>
@@ -51,5 +70,7 @@ const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => {
 };
 
 export default ConfigDialog;
+
+
 
 
