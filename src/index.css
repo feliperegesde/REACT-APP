@@ -46,7 +46,7 @@
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 20px;
-    border-radius: 12px;
+    
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
   }
   
@@ -152,7 +152,7 @@
   font-family: Arial, sans-serif;
   text-align: center;
   padding-top: 100px;
-  height: calc(100vh - 200px); 
+  height: 480px;
   
 
 }
@@ -162,14 +162,14 @@
 }
 
 
-
-.page1{
+.pagina1 {
   background-color: #e0f7fa;
   font-family: Arial, sans-serif;
   text-align: center;
   padding-top: 100px;
-  height: calc(100vh - 200px);
-
+  height: 480px;
+  width: 100%;
+  
 }
 
 
@@ -239,12 +239,22 @@
 }
 
 
+.bodyWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebarWrapper {
+  width: 250px; /* ou o valor desejado */
+  flex-shrink: 0;
+}
 
 .mainContent {
   flex: 1;
-  padding: 20px;
-  overflow-y: auto;
+  padding: 20px; 
 }
+
+
 
 
 

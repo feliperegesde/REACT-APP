@@ -32,9 +32,9 @@ const ConfigDialog: React.FC<ConfigDialogProps> = ({ open, onClose }) => {
         dialogElementsRef.current.push(okButtonRef.current);
       }
 
-      focusManager.setDialogList(dialogElementsRef.current, 1); // 1 = índice do "Ok"
+      focusManager.setDialogList(dialogElementsRef.current, 1); 
 
-      // Garante que o foco vá para o botão Ok após renderização
+
       setTimeout(() => {
         okButtonRef.current?.focus();
       }, 0);

@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import {
   Button,
   IconButton,
@@ -8,6 +8,7 @@ import {
 import AlarmIcon from '@mui/icons-material/Alarm';
 import ChinaTimeDialog from './ChinaTimeDialog';
 import ConfigDialog from './ConfigDialog';
+import focusManager from './FocusManager';
 
 function getChinaTime(): string {
   return new Date().toLocaleString("pt-BR", {
@@ -50,15 +51,36 @@ const Header: React.FC = () => {
 
   const handleCloseConfigDialog = () => setConfigDialogOpen(false);
 
+  useEffect(() => {
+    const headerElements: HTMLElement[] = [];
+
+    const alarmBtn = document.getElementById("header-alarm");
+    const dialogBtn = document.getElementById("header-dialog-button");
+    const lenovoBtn = document.getElementById("header-lenovo-button");
+
+    if (alarmBtn) headerElements.push(alarmBtn);
+    if (dialogBtn) headerElements.push(dialogBtn);
+    if (lenovoBtn) headerElements.push(lenovoBtn);
+
+    if (headerElements.length) {
+      focusManager.setHeaderElements(headerElements);
+    }
+  }, []);
+
   return (
     <div className="topnav">
       <h1 className="title">LENOVO DIAGNOSTICS</h1>
 
-      <IconButton color="secondary" onClick={handleOpenAlarmDialog}>
+      <IconButton id="header-alarm" color="secondary" onClick={handleOpenAlarmDialog}>
         <AlarmIcon />
       </IconButton>
 
-      <Button className="buttonHeader1" variant="contained" onClick={handleMenuClick}>
+      <Button
+        id="header-dialog-button"
+        className="buttonHeader1"
+        variant="contained"
+        onClick={handleMenuClick}
+      >
         Dialog
       </Button>
 
@@ -75,7 +97,12 @@ const Header: React.FC = () => {
         <MenuItem onClick={() => { alert("Ajuda"); handleMenuClose(); }}>Ajuda</MenuItem>
       </Menu>
 
-      <Button href={linklenovo} className="buttonHeader2" variant="contained">
+      <Button
+        id="header-lenovo-button"
+        href={linklenovo}
+        className="buttonHeader2"
+        variant="contained"
+      >
         Lenovo
       </Button>
 

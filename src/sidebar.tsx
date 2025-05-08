@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { Button, Snackbar, Alert, AlertColor } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Button, Snackbar, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react';
+import focusManager from './body/FocusManager';
+
 function Sidebar(): JSX.Element {
   const [executing, setExecuting] = useState<boolean>(false);
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
@@ -27,25 +29,54 @@ function Sidebar(): JSX.Element {
     setShowSnackbar(false);
   }
 
+  useEffect(() => {
+    const sidebarElements: HTMLElement[] = [];
+
+    const btnLimites = document.getElementById("sidebar-limites");
+    const btnTestes = document.getElementById("sidebar-testes");
+    const btnAnalise = document.getElementById("sidebar-analise");
+    const btnExecutar = document.getElementById("sidebar-executar");
+
+    if (btnLimites) sidebarElements.push(btnLimites);
+    if (btnTestes) sidebarElements.push(btnTestes);
+    if (btnAnalise) sidebarElements.push(btnAnalise);
+    if (btnExecutar) sidebarElements.push(btnExecutar);
+
+    if (sidebarElements.length) {
+      focusManager.setSideBarElements(sidebarElements);
+    }
+  }, []);
+
   return (
     <div className="sidebar">
       <h2>Menu</h2>
-      <Button variant="contained" href="https://pt.symbolab.com/solver/limit-calculator" className="sidebarButton">
+      <Button
+        id="sidebar-limites"
+        variant="contained"
+        href="https://pt.symbolab.com/solver/limit-calculator"
+        className="sidebarButton"
+      >
         Limites
       </Button>
-      <Button variant="contained" className="sidebarButton">
+      <Button
+        id="sidebar-testes"
+        variant="contained"
+        className="sidebarButton"
+      >
         Testes
       </Button>
-      <Button 
-        variant="contained" 
-        className="sidebarButton" 
+      <Button
+        id="sidebar-analise"
+        variant="contained"
+        className="sidebarButton"
         onClick={handleAnalise}
       >
         Análise
       </Button>
-      <Button 
-        variant="contained" 
-        className="sidebarButton" 
+      <Button
+        id="sidebar-executar"
+        variant="contained"
+        className="sidebarButton"
         onClick={Executando}
         disabled={executing}
       >
@@ -67,6 +98,7 @@ function Sidebar(): JSX.Element {
 }
 
 export default Sidebar;
+
 
 
 

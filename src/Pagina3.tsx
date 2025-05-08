@@ -15,7 +15,7 @@ const Pagina3: FC = () => {
   }, []);
 
   return (
-    <div ref={mainRef} className="page1" tabIndex={0} >
+    <div ref={mainRef} className="pagina1" tabIndex={0} >
       <h1 className="textpage1">
         PODE FECHAR AGORA OU RETORNE PARA PÁGINA INICIAL
       </h1>

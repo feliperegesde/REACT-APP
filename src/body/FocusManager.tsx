@@ -157,6 +157,18 @@ class FocusManager {
     this.arrowNavigableList = elements;
     this.arrowFlag = true;
   }
+  public clear() {
+    console.log("FocusManager: clearing all regions");
+  
+    this.headerElements = [];
+    this.sideBarElements = [];
+    this.mainContentElements = [];
+    this.footerElements = [];
+    this.focusableElements = [];
+    this.currentIndex = 0;
+  }
+  
+  
 
   public resetArrowList() {
     this.arrowNavigableList = [];
