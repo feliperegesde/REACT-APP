@@ -1,8 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import focusManager from './FocusManager';
+import { useNavigate } from 'react-router-dom';
 
 const Baixo: FC = () => {
+  const navigate = useNavigate();
+
   const reloadPage = () => {
     window.location.reload();
   };
@@ -37,7 +40,7 @@ const Baixo: FC = () => {
         id="footer-fechar"
         className="f5button"
         variant="contained"
-        href="/pagina3"
+        onClick={() => navigate('/pagina3')}
       >
         Fechar
       </Button>
@@ -45,7 +48,7 @@ const Baixo: FC = () => {
         id="footer-parar"
         className="f5button"
         variant="contained"
-        href="/pagina1"
+        onClick={() => navigate('/pagina1')}
       >
         Parar
       </Button>
@@ -54,6 +57,7 @@ const Baixo: FC = () => {
 };
 
 export default Baixo;
+
 
 
   

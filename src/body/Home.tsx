@@ -6,6 +6,7 @@ const Home: React.FC = () => {
   const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const elements: HTMLElement[] = []
     const getFocusable = (container: HTMLElement | null): HTMLElement[] =>
       container
         ? Array.from(

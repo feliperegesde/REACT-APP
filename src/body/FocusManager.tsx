@@ -158,8 +158,6 @@ class FocusManager {
     this.arrowFlag = true;
   }
   public clear() {
-    console.log("FocusManager: clearing all regions");
-  
     this.headerElements = [];
     this.sideBarElements = [];
     this.mainContentElements = [];
